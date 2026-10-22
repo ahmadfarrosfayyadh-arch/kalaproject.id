@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kala Project — Creative Agency & Visual Studio</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        kala: {
+                            blue: '#1C5E9B',
+                            blueHover: '#154877',
+                            gold: '#F3CA45',
+                            goldHover: '#DAB22E',
+                            black: '#090A0C',
+                            dark: '#1E293B',
+                            muted: '#64748B',
+                            bg: '#FAF9F6'
+                        }
+                    },
+                    fontFamily: {
+                        syne: ['Syne', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Syne:wght@400..800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #FAF9F6;
+            color: #090A0C;
+            overflow-x: hidden;
+        }
+        .font-syne {
+            font-family: 'Syne', sans-serif;
+        }
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            border-color: rgba(28, 94, 155, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px -8px rgba(15, 23, 42, 0.1);
+        }
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #1C5E9B 0%, #154878 50%, #F3CA45 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gold-border-glow {
+            box-shadow: 0 0 15px rgba(243, 202, 69, 0.2);
+        }
+        .glass-nav {
+            background: rgba(250, 249, 246, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF9F6;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1C5E9B;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-kala-blue selection:text-white">
+
+    <!-- Header Navigation -->
+    <header id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 glass-nav">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- BRAND LOGO AREA -->
+            <div class="flex items-center space-x-3 cursor-pointer">
+                <div class="flex items-center justify-center relative group">
+                    <!-- Default Logo Image dengan Pengubah Gambar Otomatis -->
+                    <img id="appHeaderLogo"     
+                         src="images/logo2.jpeg" 
+                         alt="kala project" 
+                         class="h-10 w-auto object-contain rounded-lg"
+                         onerror="this.src='https://placehold.co/120x40/1C5E9B/ffffff?text=KALA'">
+                        <i></i>
+                    </label>
+                </div>
+                <div>
+                    <span class="text-xl font-black tracking-wider text-slate-900">kala project</span>
+                    <span class="text-[10px] block font-bold text-[#2b9abf] -mt-1 tracking-widest">creative studio</span>
+                </div>
+            </div>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="#about" class="nav-link text-sm uppercase tracking-widest font-semibold text-kala-blue hover:text-kala-blue transition-colors">Tentang Kami</a>
+                <a href="#pillars" class="nav-link text-sm uppercase tracking-widest font-semibold text-slate-600 hover:text-kala-blue transition-colors">Divisi Layanan</a>
+                <a href="#portfolio" class="nav-link text-sm uppercase tracking-widest font-semibold text-slate-600 hover:text-kala-blue transition-colors">Portofolio</a>
+                <a href="#contact" class="nav-link text-sm uppercase tracking-widest font-semibold text-slate-600 hover:text-kala-blue transition-colors">Kontak</a>
+            </nav>
+
+            <!-- Call to Action Button & Mobile Menu Toggle -->
+            <div class="flex items-center gap-4">
+                <a href="https://wa.me/6281703923991" target="_blank" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold tracking-wider uppercase bg-kala-gold text-white hover:bg-kala-goldHover transition-all transform hover:scale-105 shadow-md shadow-kala-gold/20">
+                    <span>Mulai Proyek</span>
+                    <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                </a>
+                
+                <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden p-2 text-kala-black hover:text-kala-gold focus:outline-none" aria-label="Toggle Menu">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Navigation -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 border-b border-slate-200 px-6 py-6 transition-all duration-300">
+            <nav class="flex flex-col gap-4">
+                <a href="#about" onclick="toggleMobileMenu()" class="text-base uppercase tracking-widest font-semibold text-kala-blue py-2 border-b border-slate-100">Tentang Kami</a>
+                <a href="#pillars" onclick="toggleMobileMenu()" class="text-base uppercase tracking-widest font-semibold text-slate-600 hover:text-kala-blue py-2 border-b border-slate-100">Divisi Layanan</a>
+                <a href="#portfolio" onclick="toggleMobileMenu()" class="text-base uppercase tracking-widest font-semibold text-slate-600 hover:text-kala-blue py-2 border-b border-slate-100">Portofolio</a>
+                <a href="#contact" onclick="toggleMobileMenu()" class="text-base uppercase tracking-widest font-semibold text-slate-600 hover:text-kala-blue py-2 border-b border-slate-100">Kontak</a>
+                <a href="https://wa.me/6281703923991" target="_blank" class="inline-flex justify-center items-center gap-2 px-5 py-3 rounded-full text-xs font-bold tracking-wider uppercase bg-kala-gold text-white mt-2 shadow-md">
+                    <span>Mulai Proyek</span>
+                    <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="pt-20">
+        <!-- Hero Section with Slider -->
+        <section id="about" class="min-h-[85vh] flex flex-col items-center justify-center relative overflow-hidden py-16 px-6">
+            <div class="max-w-5xl mx-auto text-center relative z-10 mb-12">
+                <span class="inline-block px-4 py-1.5 rounded-full bg-slate-200/70 border border-slate-300 text-kala-blue text-xs font-extrabold uppercase tracking-widest mb-6">
+                    Creative Agency & Visual Studio
+                </span>
+                <h1 class="font-syne text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-kala-black mb-6 leading-[1.1]">
+                    STORIES WORTH <br><span class="gold-gradient-text font-serif italic font-normal">REMEMBERING</span>
+                </h1>
+                <p class="text-kala-muted text-base sm:text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
+                    Kala Project menghidupkan narasi bermakna melalui produksi film sinematik, strategi branding berdampak, dan konten visual eksperimental.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="#pillars" class="px-8 py-4 rounded-full bg-kala-blue text-white text-xs font-bold uppercase tracking-wider hover:bg-kala-blueHover transition-all shadow-lg shadow-kala-blue/20 flex items-center gap-2">
+                        <span>Jelajahi Divisi Kami</span>
+                        <i data-lucide="arrow-down" class="w-4 h-4"></i>
+                    </a>
+                    <a href="#portfolio" class="px-8 py-4 rounded-full border border-slate-300 bg-white text-kala-black text-xs font-bold uppercase tracking-wider hover:bg-slate-100 transition-all">
+                        Lihat Portofolio
+                    </a>
+                </div>
+            </div>
+
+            <!-- Interactive Carousel / Highlight Showcase -->
+            <div class="w-full max-w-6xl mx-auto relative z-10">
+                <div class="flex items-center justify-between mb-4 px-2">
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="sparkles" class="w-4 h-4 text-kala-blue"></i>
+                        <span class="text-xs font-bold tracking-widest uppercase text-kala-black">Proyek Unggulan</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button id="slide-prev" onclick="prevSlide()" class="w-9 h-9 rounded-full border border-slate-300 flex items-center justify-center text-kala-black hover:border-kala-blue hover:text-kala-blue transition-all bg-white shadow-sm">
+                            <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                        </button>
+                        <button id="slide-next" onclick="nextSlide()" class="w-9 h-9 rounded-full border border-slate-300 flex items-center justify-center text-kala-black hover:border-kala-blue hover:text-kala-blue transition-all bg-white shadow-sm">
+                            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="carousel-container" class="overflow-hidden rounded-3xl border border-slate-200 bg-white relative shadow-xl">
+                    <div id="carousel-track" class="flex transition-transform duration-500 ease-out">
+                        
+                        <!-- Slide 1 -->
+                        <div class="min-w-full relative h-[380px] sm:h-[480px] flex-shrink-0">
+                            <img src="images/CEMANDI1 - Copy.jpeg" alt="Reog Cemandi" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/1200x600/1C5E9B/ffffff?text=Reog+Cemandi'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent flex flex-col justify-end p-6 sm:p-10 text-white">
+                                <span class="text-amber-400 text-xs font-bold tracking-widest uppercase mb-2">Featured Documentary</span>
+                                <h3 class="font-syne text-2xl sm:text-4xl font-bold mb-2">Reog Cemandi — Melawan Lupa</h3>
+                                <p class="text-slate-300 text-xs sm:text-sm max-w-xl mb-6 line-clamp-2">Dokumentasi budaya sinematik mengeksplorasi jejak tradisi leluhur Sidoarjo yang hampir punah.</p>
+                                <div>
+                                    <button onclick="openProjectModal('cemandi')" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-kala-black hover:bg-kala-blue hover:text-white transition-all text-xs font-bold uppercase tracking-wider shadow-lg">
+                                        <span>Detail Karya</span>
+                                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 2 -->
+                        <div class="min-w-full relative h-[380px] sm:h-[480px] flex-shrink-0">
+                            <img src="images/Tanaman-Herbal.jpg" alt="Kalam Herbs" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/1200x600/1C5E9B/ffffff?text=Kalam+Herbs'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent flex flex-col justify-end p-6 sm:p-10 text-white">
+                                <span class="text-amber-400 text-xs font-bold tracking-widest uppercase mb-2">Brand Identity</span>
+                                <h3 class="font-syne text-2xl sm:text-4xl font-bold mb-2">Kalam Herbs — Authentic Wellness</h3>
+                                <p class="text-slate-300 text-xs sm:text-sm max-w-xl mb-6 line-clamp-2">Perancangan identitas merek herbal premium, kemasan ramah lingkungan, dan strategi konten media sosial.</p>
+                                <div>
+                                    <button onclick="openProjectModal('herbal')" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-kala-black hover:bg-kala-blue hover:text-white transition-all text-xs font-bold uppercase tracking-wider shadow-lg">
+                                        <span>Detail Project</span>
+                                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 3 -->
+                        <div class="min-w-full relative h-[380px] sm:h-[480px] flex-shrink-0">
+                            <img src="images/PELATIHAN.jpeg" alt="Workshop Kala Lab" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/1200x600/1C5E9B/ffffff?text=Kala+Lab+Workshop'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent flex flex-col justify-end p-6 sm:p-10 text-white">
+                                <span class="text-amber-400 text-xs font-bold tracking-widest uppercase mb-2">Kala Lab Program</span>
+                                <h3 class="font-syne text-2xl sm:text-4xl font-bold mb-2">Visual Storytelling & AI Workshop</h3>
+                                <p class="text-slate-300 text-xs sm:text-sm max-w-xl mb-6 line-clamp-2">Pelatihan intensif menggabungkan seni bercerita visual tradisional dengan teknologi generative AI.</p>
+                                <div>
+                                    <button onclick="openPillarModal('lab')" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-kala-blue text-white hover:bg-kala-blueHover transition-all text-xs font-bold uppercase tracking-wider shadow-lg">
+                                        <span>Eksplor Program Lab</span>
+                                        <i data-lucide="sparkles" class="w-4 h-4"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Indicators -->
+                    <div class="absolute bottom-4 right-6 flex items-center gap-2 z-10" id="carousel-indicators">
+                        <button onclick="goToSlide(0)" class="w-8 h-1.5 rounded-full bg-amber-400 transition-all" data-slide="0"></button>
+                        <button onclick="goToSlide(1)" class="w-3 h-1.5 rounded-full bg-white/50 transition-all" data-slide="1"></button>
+                        <button onclick="goToSlide(2)" class="w-3 h-1.5 rounded-full bg-white/50 transition-all" data-slide="2"></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pillars Overview Section -->
+        <section id="pillars" class="py-24 px-6 bg-slate-100/50 border-y border-slate-200">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <span class="text-xs font-extrabold uppercase tracking-widest text-kala-blue block mb-2">Tiga Pilar Utama</span>
+                    <h2 class="font-syne text-3xl sm:text-4xl font-extrabold text-kala-black">Eksplorasi Layanan Kala Project</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Kala Kisah -->
+                    <div class="glass-card p-8 rounded-3xl relative group cursor-pointer hover:shadow-xl transition-all duration-300" onclick="openPillarModal('kisah')">
+                        <div class="w-12 h-12 rounded-2xl bg-slate-100 border border-slate-200 flex items-center justify-center text-kala-blue mb-6 group-hover:bg-kala-blue group-hover:text-white transition-colors">
+                            <i data-lucide="clapperboard" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-xs font-bold tracking-widest text-kala-blue uppercase block mb-1">01 / FILMMAKING</span>
+                        <h3 class="font-syne text-2xl font-bold mb-3 text-kala-black">KALA KISAH</h3>
+                        <p class="text-kala-muted text-sm leading-relaxed mb-6">Ruang eksplorasi sinematik untuk pembuatan film dokumenter, film pendek, dokumentasi budaya, dan fotografi berkisah.</p>
+                        <button class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-kala-blue hover:underline">
+                            Eksplor Film <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+
+                    <!-- Kala Brand -->
+                    <div class="glass-card p-8 rounded-3xl relative group cursor-pointer hover:shadow-xl transition-all duration-300" onclick="openPillarModal('brand')">
+                        <div class="w-12 h-12 rounded-2xl bg-slate-100 border border-slate-200 flex items-center justify-center text-kala-blue mb-6 group-hover:bg-kala-blue group-hover:text-white transition-colors">
+                            <i data-lucide="sparkles" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-xs font-bold tracking-widest text-kala-blue uppercase block mb-1">02 / COMMERCIAL</span>
+                        <h3 class="font-syne text-2xl font-bold mb-3 text-kala-black">KALA BRAND</h3>
+                        <p class="text-kala-muted text-sm leading-relaxed mb-6">Solusi komersial terpadu meliputi identitas visual, perancangan logo, strategi media sosial, kampanye kreatif, hingga web studio.</p>
+                        <button class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-kala-blue hover:underline">
+                            Layanan Brand <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+
+                    <!-- Kala Lab -->
+                    <div class="glass-card p-8 rounded-3xl relative group cursor-pointer hover:shadow-xl transition-all duration-300" onclick="openPillarModal('lab')">
+                        <div class="w-12 h-12 rounded-2xl bg-slate-100 border border-slate-200 flex items-center justify-center text-kala-blue mb-6 group-hover:bg-kala-blue group-hover:text-white transition-colors">
+                            <i data-lucide="flask-conical" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-xs font-bold tracking-widest text-kala-blue uppercase block mb-1">03 / EDUCATION</span>
+                        <h3 class="font-syne text-2xl font-bold mb-3 text-kala-black">KALA LAB</h3>
+                        <p class="text-kala-muted text-sm leading-relaxed mb-6">Wadah laboratorium ide, eksperimen media baru (AI & Culture), workshop edukasi visual, serta ruang kolaborasi komunitas.</p>
+                        <button class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-kala-blue hover:underline">
+                            Masuk Lab <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Showcase -->
+        <section id="portfolio" class="py-24 px-6">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                    <div>
+                        <span class="text-xs font-extrabold uppercase tracking-widest text-kala-blue block mb-2">Karya Terpilih</span>
+                        <h2 class="font-syne text-3xl sm:text-4xl font-extrabold text-kala-black">Portofolio & Eksperimen</h2>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer" onclick="openProjectModal('cemandi')">
+                        <div class="h-56 bg-slate-200 overflow-hidden relative">
+                            <img src="images/CEMANDI1 - Copy.jpeg" alt="Reog Cemandi" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/1C5E9B/ffffff?text=Reog+Cemandi'">
+                        </div>
+                        <div class="p-6">
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-kala-blue block mb-1">Film Dokumenter</span>
+                            <h3 class="font-syne text-xl font-bold mb-2">Reog Cemandi — Melawan Lupa</h3>
+                            <p class="text-kala-muted text-xs line-clamp-2">Dokumenter pelestarian warisan budaya lokal yang sarat nilai sejarah dan nilai seni esensial.</p>
+                        </div>
+                    </div>
+
+                    <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer" onclick="openProjectModal('kopi')">
+                        <div class="h-56 bg-slate-200 overflow-hidden relative">
+                            <img src="images/KOPI.webp" alt="Arabica from Arjuna" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/1C5E9B/ffffff?text=Arabica+Arjuna'">
+                        </div>
+                        <div class="p-6">
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-kala-blue block mb-1">Creative Commercial</span>
+                            <h3 class="font-syne text-xl font-bold mb-2">Arabica from Arjuna</h3>
+                            <p class="text-kala-muted text-xs line-clamp-2">Eksplorasi sinematografi naratif komoditas kopi lokal dari pegunungan Arjuna.</p>
+                        </div>
+                    </div>
+
+                    <div class="glass-card rounded-3xl overflow-hidden group cursor-pointer" onclick="openProjectModal('herbal')">
+                        <div class="h-56 bg-slate-200 overflow-hidden relative">
+                            <img src="images/Tanaman-Herbal.jpg" alt="Kalam Herbs" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/1C5E9B/ffffff?text=Kalam+Herbs'">
+                        </div>
+                        <div class="p-6">
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-kala-blue block mb-1">Brand Identity</span>
+                            <h3 class="font-syne text-xl font-bold mb-2">Kalam Herbs</h3>
+                            <p class="text-kala-muted text-xs line-clamp-2">Perancangan identitas merek dan strategi visual kemasan produk herbal alami.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-24 px-6 bg-slate-900 text-white relative">
+            <div class="max-w-4xl mx-auto text-center">
+                <span class="text-xs font-bold uppercase tracking-widest text-kala-gold block mb-2">Mari Berkolaborasi</span>
+                <h2 class="font-syne text-3xl sm:text-5xl font-extrabold mb-6">Punya Ide Proyek Bagus?</h2>
+                <p class="text-slate-400 text-sm sm:text-base mb-10 max-w-xl mx-auto">
+                    Kala Project siap membantu mewujudkan narasi visual, identitas brand, atau program edukasi Anda.
+                </p>
+                <a href="https://wa.me/6281703923991" target="_blank" class="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-kala-gold text-slate-950 font-bold text-xs uppercase tracking-wider hover:bg-kala-goldHover transition-all shadow-lg shadow-kala-gold/20">
+                    <span>Mulai Diskusi via WhatsApp</span>
+                    <i data-lucide="message-circle" class="w-5 h-5"></i>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Main Section Footer (Diselaraskan dengan Kala Project) -->
+    <footer class="bg-slate-950 text-slate-300 pt-16 pb-12 px-6 border-t border-slate-900 font-sans">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-16">
+                <!-- Col 1: Brand Info -->
+                <div class="space-y-4">
+                    <h3 class="text-2xl font-black tracking-tight text-white font-syne">
+                        KALA <span class="text-kala-gold">PROJECT</span>
+                    </h3>
+                    <p class="text-xs font-bold uppercase tracking-widest text-kala-gold">
+                        KALA KISAH. KALA BRAND. KALA LAB.
+                    </p>
+                    <p class="text-slate-400 text-xs sm:text-sm leading-relaxed pr-4">
+                        Solusi terintegrasi untuk produksi film sinematik, strategi identitas visual branding, serta laboratorium eksperimen media dan edukasi visual.
+                    </p>
+                </div>
+
+                <!-- Col 2: Navigasi -->
+                <div>
+                    <h4 class="text-sm font-bold tracking-wider uppercase text-white mb-6 font-syne">NAVIGASI</h4>
+                    <ul class="space-y-3 text-xs sm:text-sm text-slate-400">
+                        <li><a href="#about" class="hover:text-kala-gold transition-colors">Beranda</a></li>
+                        <li><a href="#pillars" class="hover:text-kala-gold transition-colors font-semibold">Pilar Layanan</a></li>
+                        <li><a href="#portfolio" class="hover:text-kala-gold transition-colors">Portofolio Karya</a></li>
+                        <li><a href="#contact" class="hover:text-kala-gold transition-colors">Hubungi Kami</a></li>
+                        <li><a href="https://wa.me/6281703923991" target="_blank" class="hover:text-kala-gold transition-colors">Mulai Proyek</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Layanan Utama -->
+                <div>
+                    <h4 class="text-sm font-bold tracking-wider uppercase text-white mb-6 font-syne">LAYANAN UTAMA</h4>
+                    <ul class="space-y-3 text-xs sm:text-sm text-slate-400">
+                        <li><a href="javascript:void(0)" onclick="openPillarModal('kisah')" class="hover:text-kala-gold transition-colors">Film Dokumenter & Sinema</a></li>
+                        <li><a href="javascript:void(0)" onclick="openPillarModal('brand')" class="hover:text-kala-gold transition-colors">Brand Identity & Commercial</a></li>
+                        <li><a href="javascript:void(0)" onclick="openPillarModal('brand')" class="hover:text-kala-gold transition-colors">Fotografi Produk & Katalog</a></li>
+                        <li><a href="javascript:void(0)" onclick="openPillarModal('lab')" class="hover:text-kala-gold transition-colors">Visual Storytelling & AI Lab</a></li>
+                        <li><a href="javascript:void(0)" onclick="openPillarModal('lab')" class="hover:text-kala-gold transition-colors">Workshop & Kelas Edukasi</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Hubungi Kami -->
+                <div>
+                    <h4 class="text-sm font-bold tracking-wider uppercase text-white mb-6 font-syne">HUBUNGI KAMI</h4>
+                    <ul class="space-y-4 text-xs sm:text-sm text-slate-400">
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="map-pin" class="w-4 h-4 text-kala-gold shrink-0 mt-0.5"></i>
+                            <span>Sidoarjo & Surabaya, Jawa Timur, Indonesia</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="phone" class="w-4 h-4 text-kala-gold shrink-0"></i>
+                            <a href="https://wa.me/6281703923991" target="_blank" class="hover:text-white transition-colors">+62 817-0392-3991</a>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="mail" class="w-4 h-4 text-kala-gold shrink-0"></i>
+                            <a href="mailto:kalaproject.id@gmail.com" class="hover:text-white transition-colors">kalaproject.id@gmail.com</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Line Copyright & Terms -->
+            <div class="pt-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+                <p>&copy; 2026 KALA PROJECT. Hak Cipta Dilindungi Undang-Undang.</p>
+                <div class="flex items-center gap-6">
+                    <a href="#" class="hover:text-slate-300 transition-colors">Kebijakan Privasi</a>
+                    <a href="#" class="hover:text-slate-300 transition-colors">Syarat & Ketentuan</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Dedicated Pillar Modal -->
+    <div id="pillar-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="glass-card bg-white border-slate-200 max-w-4xl w-full rounded-3xl overflow-hidden max-h-[92vh] flex flex-col transform scale-95 transition-transform duration-300" id="pillar-modal-container">
+            <div class="relative h-48 sm:h-64 w-full overflow-hidden bg-slate-900 flex items-end p-6 sm:p-10">
+                <img id="pillar-modal-bg" src="" alt="Pillar Cover" class="absolute inset-0 w-full h-full object-cover opacity-40" onerror="this.src='https://placehold.co/1200x600/1C5E9B/ffffff?text=Kala+Project'">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+                
+                <button onclick="closePillarModal()" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 text-kala-black flex items-center justify-center hover:bg-kala-blue hover:text-white transition-all shadow-md z-10">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+
+                <div class="relative z-10">
+                    <span id="pillar-modal-tag" class="inline-block px-3 py-1 rounded-full bg-kala-blue text-white text-[10px] font-extrabold uppercase tracking-widest mb-2 shadow-sm">
+                        01 / FILMMAKING
+                    </span>
+                    <h2 id="pillar-modal-title" class="font-syne text-3xl sm:text-5xl font-extrabold text-white tracking-tight">KALA KISAH</h2>
+                </div>
+            </div>
+
+            <div class="p-6 sm:p-10 overflow-y-auto space-y-8">
+                <div>
+                    <h3 class="text-xs font-bold uppercase tracking-widest text-kala-blue mb-2">Tentang Divisi</h3>
+                    <p id="pillar-modal-desc" class="text-slate-700 text-sm sm:text-base leading-relaxed font-light">Deskripsi divisi...</p>
+                </div>
+
+                <div class="bg-slate-50 border border-slate-200 p-6 rounded-2xl">
+                    <h3 class="text-xs font-bold uppercase tracking-widest text-kala-black mb-4">Layanan Utama & Spektrum Kerja</h3>
+                    <div id="pillar-modal-features" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-700">
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-bold uppercase tracking-widest text-kala-black mb-4">Karya Pilihan Terkait</h3>
+                    <div id="pillar-modal-projects" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <span class="text-xs text-kala-muted font-medium">Ingin mengembangkan proyek bersama divisi ini?</span>
+                    <div class="flex gap-3 w-full sm:w-auto">
+                        <button onclick="closePillarModal()" class="flex-1 sm:flex-none px-6 py-3 rounded-full border border-slate-300 text-xs font-bold uppercase tracking-wider text-kala-black hover:bg-slate-100">
+                            Tutup
+                        </button>
+                        <a id="pillar-modal-action-btn" href="#" target="_blank" class="flex-1 sm:flex-none px-6 py-3 rounded-full bg-kala-blue text-white text-xs font-bold uppercase tracking-wider hover:bg-kala-blueHover transition-all inline-flex items-center justify-center gap-2 shadow-md">
+                            <span>Mulai Konsultasi</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Details Modal -->
+    <div id="project-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="glass-card bg-white border-slate-200 max-w-3xl w-full rounded-3xl overflow-hidden max-h-[90vh] flex flex-col transform scale-95 transition-transform duration-300" id="project-modal-container">
+            <div class="relative h-64 sm:h-80 w-full overflow-hidden">
+                <img id="modal-img" src="" alt="Project Preview" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/800x600/1C5E9B/ffffff?text=Project+Preview'">
+                <button onclick="closeProjectModal()" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 text-kala-black flex items-center justify-center hover:bg-kala-blue hover:text-white transition-all shadow-md">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <div class="p-6 md:p-8 overflow-y-auto">
+                <div class="flex items-center gap-2 mb-3">
+                    <span id="modal-category" class="px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-kala-blue text-[10px] font-bold uppercase tracking-widest">Category</span>
+                </div>
+
+                <h3 id="modal-title" class="font-syne text-2xl sm:text-3xl font-bold mb-4 text-kala-black">Project Title</h3>
+                <p id="modal-desc" class="text-kala-muted text-xs sm:text-sm leading-relaxed mb-6">Detailed description goes here...</p>
+
+                <div class="flex justify-end gap-3">
+                    <button onclick="closeProjectModal()" class="px-6 py-2.5 rounded-full border border-slate-300 text-xs font-bold uppercase tracking-wider text-kala-black hover:bg-slate-100">
+                        Tutup
+                    </button>
+                    <a id="modal-whatsapp-btn" href="https://wa.me/6281703923991" target="_blank" class="px-6 py-2.5 rounded-full bg-kala-black text-white text-xs font-bold uppercase tracking-wider hover:bg-kala-blue transition-all inline-flex items-center gap-2 shadow-md">
+                        <span>Diskusi Proyek Serupa</span>
+                        <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        lucide.createIcons();
+
+        // Upload Header Logo Helper
+        function uploadHeaderLogo(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const logoImg = document.getElementById('appHeaderLogo');
+                    if (logoImg) logoImg.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Toggle Mobile Navigation Drawer
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu) {
+                mobileMenu.classList.toggle('hidden');
+            }
+        }
+
+        // Carousel Slider Logic
+        let currentSlide = 0;
+        const totalSlides = 3;
+
+        function updateCarousel() {
+            const track = document.getElementById('carousel-track');
+            if (track) {
+                track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            }
+            const indicators = document.querySelectorAll('#carousel-indicators button');
+            indicators.forEach((ind, idx) => {
+                if (idx === currentSlide) {
+                    ind.className = 'w-8 h-1.5 rounded-full bg-amber-400 transition-all';
+                } else {
+                    ind.className = 'w-3 h-1.5 rounded-full bg-white/50 transition-all';
+                }
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+
+        function goToSlide(idx) {
+            currentSlide = idx;
+            updateCarousel();
+        }
+
+        const pillarsData = {
+            kisah: {
+                title: "KALA KISAH",
+                tag: "01 / FILMMAKING",
+                bg: "images/CEMANDI1 - Copy.jpeg",
+                desc: "Kala Kisah fokus pada pembuatan film dokumenter, film naratif pendek, fotografi berkisah, serta arsip visual kebudayaan. Kami memadukan pendekatan artistik sinematik dengan riset yang mendalam untuk menghasilkan karya berdampak tinggi.",
+                features: [
+                    "Produksi Film Dokumenter & Pendek",
+                    "Fotografi Esai & Jurnalistik Visual",
+                    "Dokumentasi Warisan Budaya & Tradisi",
+                    "Director & Storyboard Crafting",
+                    "Audio Post-Production & Sound Design"
+                ],
+                projects: [
+                    { title: "Reog Cemandi — Melawan Lupa", type: "Film Dokumenter (2024)", img: "images/CEMANDI1 - Copy.jpeg" },
+                    { title: "Arabica from Arjuna", type: "Creative Film (2023)", img: "images/KOPI.webp" }
+                ],
+                actionText: "Diskusi Proyek Film",
+                actionLink: "https://wa.me/6281703923991?text=Halo%20Kala%20Project,%20saya%20tertarik%20dengan%20layanan%20Kala%20Kisah"
+            },
+            brand: {
+                title: "KALA BRAND",
+                tag: "02 / COMMERCIAL",
+                bg: "images/Tanaman-Herbal.jpg",
+                desc: "Kala Brand menyediakan solusi komersial terintegrasi dari perancangan identitas merek, desain kemasan, strategi media sosial, hingga eksekusi situs web interaktif untuk memperkuat persona produk atau bisnis Anda.",
+                features: [
+                    "Visual Identity & Brand Strategy",
+                    "Desain Kemasan & Product Styling",
+                    "Digital Campaign & Social Media Strategy",
+                    "Kreatif Studio & Web Development",
+                    "Commercial Photography & Commercial Reels"
+                ],
+                projects: [
+                    { title: "Kalam Herbs — Authentic Wellness", type: "Brand Identity & Packaging", img: "images/Tanaman-Herbal.jpg" }
+                ],
+                actionText: "Konsultasi Brand",
+                actionLink: "https://wa.me/6281703923991?text=Halo%20Kala%20Project,%20saya%20tertarik%20dengan%20layanan%20Kala%20Brand"
+            },
+            lab: {
+                title: "KALA LAB",
+                tag: "03 / EDUCATION & EXPERIMENT",
+                bg: "images/PELATIHAN.jpeg",
+                desc: "Kala Lab merupakan ruang eksperimen dan pembelajaran publik. Tempat kami mengeksplorasi integrasi teknologi AI untuk seni visual, menyelenggarakan workshop pelatihan film/desain, serta membangun proyek kolaborasi bersama komunitas.",
+                features: [
+                    "Workshop AI & Visual Storytelling",
+                    "Incubator & Program Mentorship UMKM",
+                    "Riset Media Baru & Restorasi Visual",
+                    "Program Kelas Komunitas & Akademik",
+                    "Sesi Kolaborasi Terbuka (Co-creation)"
+                ],
+                projects: [
+                    { title: "Visual Storytelling AI Workshop", type: "Lab Experiment", img: "images/PELATIHAN.jpeg" }
+                ],
+                actionText: "Gabung Kala Lab",
+                actionLink: "https://wa.me/6281703923991?text=Halo%20Kala%20Project,%20saya%20ingin%20berkolaborasi%20di%20Kala%20Lab"
+            }
+        };
+
+        const projectsData = {
+            cemandi: {
+                title: "Reog Cemandi — Melawan Lupa",
+                category: "Film Dokumenter",
+                img: "images/CEMANDI1 - Copy.jpeg",
+                desc: "Film dokumenter naratif mengenai perjalanan kesenian Reog Cemandi dari Sidoarjo dalam menjaga eksistensi dan tradisi sejarah leluhur."
+            },
+            kopi: {
+                title: "Arabica from Arjuna",
+                category: "Creative Commercial",
+                img: "images/KOPI.webp",
+                desc: "Karya visual naratif sinematik yang mengangkat esensi petani kopi lokal di lereng Gunung Arjuna."
+            },
+            herbal: {
+                title: "Kalam Herbs",
+                category: "Brand Identity",
+                img: "images/Tanaman-Herbal.jpg",
+                desc: "Pengembangan identitas visual komprehensif, fotografi produk, serta pengemasan brand herbal alami modern."
+            }
+        };
+
+        // Pillar Modal Logic
+        const pillarModal = document.getElementById('pillar-modal');
+        const pillarModalContainer = document.getElementById('pillar-modal-container');
+
+        function openPillarModal(key) {
+            const data = pillarsData[key];
+            if (!data) return;
+
+            document.getElementById('pillar-modal-bg').src = data.bg;
+            document.getElementById('pillar-modal-title').textContent = data.title;
+            document.getElementById('pillar-modal-tag').textContent = data.tag;
+            document.getElementById('pillar-modal-desc').textContent = data.desc;
+
+            const featuresContainer = document.getElementById('pillar-modal-features');
+            featuresContainer.innerHTML = data.features.map(f => `
+                <div class="flex items-center gap-2 p-2.5 rounded-xl bg-white border border-slate-200 shadow-sm font-medium">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-kala-blue flex-shrink-0"></i>
+                    <span>${f}</span>
+                </div>
+            `).join('');
+
+            const projectsContainer = document.getElementById('pillar-modal-projects');
+            projectsContainer.innerHTML = data.projects.map(p => `
+                <div class="flex items-center gap-3 p-3 rounded-2xl bg-slate-50 border border-slate-200">
+                    <img src="${p.img}" class="w-14 h-14 rounded-xl object-cover flex-shrink-0 border border-slate-200" onerror="this.src='https://placehold.co/100x100/1C5E9B/ffffff?text=Kala'">
+                    <div class="overflow-hidden">
+                        <h4 class="font-syne font-bold text-xs text-kala-black truncate">${p.title}</h4>
+                        <span class="text-[10px] text-kala-muted">${p.type}</span>
+                    </div>
+                </div>
+            `).join('');
+
+            const actionBtn = document.getElementById('pillar-modal-action-btn');
+            actionBtn.href = data.actionLink;
+            actionBtn.querySelector('span').textContent = data.actionText;
+
+            lucide.createIcons();
+
+            pillarModal.classList.remove('opacity-0', 'pointer-events-none');
+            pillarModalContainer.classList.remove('scale-95');
+            pillarModalContainer.classList.add('scale-100');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePillarModal() {
+            pillarModal.classList.add('opacity-0', 'pointer-events-none');
+            pillarModalContainer.classList.remove('scale-100');
+            pillarModalContainer.classList.add('scale-95');
+            document.body.style.overflow = 'auto';
+        }
+
+        pillarModal.addEventListener('click', (e) => {
+            if (e.target === pillarModal) closePillarModal();
+        });
+
+        // Project Modal Logic
+        const projectModal = document.getElementById('project-modal');
+        const projectModalContainer = document.getElementById('project-modal-container');
+
+        function openProjectModal(key) {
+            const project = projectsData[key];
+            if (!project) return;
+
+            document.getElementById('modal-img').src = project.img;
+            document.getElementById('modal-category').textContent = project.category;
+            document.getElementById('modal-title').textContent = project.title;
+            document.getElementById('modal-desc').textContent = project.desc;
+
+            projectModal.classList.remove('opacity-0', 'pointer-events-none');
+            projectModalContainer.classList.remove('scale-95');
+            projectModalContainer.classList.add('scale-100');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProjectModal() {
+            projectModal.classList.add('opacity-0', 'pointer-events-none');
+            projectModalContainer.classList.remove('scale-100');
+            projectModalContainer.classList.add('scale-95');
+            document.body.style.overflow = 'auto';
+        }
+
+        projectModal.addEventListener('click', (e) => {
+            if (e.target === projectModal) closeProjectModal();
+        });
+    </script>
+</body>
+</html>
